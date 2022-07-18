@@ -11,5 +11,13 @@
 
     <artifactId>rabbit-core-producer</artifactId>
 
+    <dependencies>
+        <dependency>
+            <artifactId>rabbit-common</artifactId>
+            <groupId>com.base.rabbit</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
