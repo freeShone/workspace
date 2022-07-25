@@ -6,6 +6,7 @@ import com.base.rabbit.api.MessageType;
 import com.base.rabbit.api.SendCallback;
 import com.base.rabbit.api.exception.MessageRunTimeException;
 import com.google.common.base.Preconditions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 @Component
 public class ProducerClient implements MessageProducer {
 
+    @Autowired
     private RabbitBroker rabbitBroker;
 
     /**
