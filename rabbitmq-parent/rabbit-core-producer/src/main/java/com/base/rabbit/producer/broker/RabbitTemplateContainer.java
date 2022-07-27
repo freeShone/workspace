@@ -3,6 +3,7 @@ package com.base.rabbit.producer.broker;
 import com.base.rabbit.api.Message;
 import com.base.rabbit.api.MessageType;
 import com.base.rabbit.api.exception.MessageRunTimeException;
+import com.base.rabbit.producer.service.MessageStoreService;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
@@ -38,6 +39,9 @@ public class RabbitTemplateContainer implements RabbitTemplate.ConfirmCallback{
     @Autowired
     private ConnectionFactory connectionFactory;
 
+    @Autowired
+    private MessageStoreService messageStoreService;
+
     private final Splitter splitter = Splitter.on("#");
 
     public RabbitTemplate getTemplate(Message message) throws MessageRunTimeException {
@@ -72,6 +76,8 @@ public class RabbitTemplateContainer implements RabbitTemplate.ConfirmCallback{
         String messageId = strings.get(0);
         long sendTime = Long.parseLong(strings.get(1));
         if(ack){
+            // 当Broker返回ACK成功，更新日志表里发送状态为SEND_OK
+            messageStoreService.success(messageId);
             log.info("send message is OK, confirm messageId: {}, sendTime: {}",messageId,sendTime);
         }else{
             log.error("send message is Fail, confirm messageId: {}, sendTime: {}",messageId,sendTime);
