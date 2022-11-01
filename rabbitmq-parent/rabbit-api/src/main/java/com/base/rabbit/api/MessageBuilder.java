@@ -58,7 +58,7 @@ public class MessageBuilder {
     public Message build(){
         if(messageId==null){
             messageId = UUID.randomUUID().toString();
-        }
+    }
         if(topic==null){
             throw new MessageRunTimeException("this topic is null");
         }
